@@ -9,7 +9,7 @@ namespace AddisonWesley.Michaelis.EssentialCSharp.Chapter20.Listing20_03
     {
         public const string DefaultUrl = "https://IntelliTect.com";
 
-        public static async Task Main(string[] args)
+        public static async Task Example3(string[] args)
         {
             if (args.Length == 0)
             {
