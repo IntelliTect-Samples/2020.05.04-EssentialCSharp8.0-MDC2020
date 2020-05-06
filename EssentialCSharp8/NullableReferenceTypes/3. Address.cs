@@ -7,7 +7,17 @@ namespace EssentialCSharp8.Tests.NullableReferenceTypes
 
     class Address
     {
-        public string Street1 { get; }
+        private string? _Street1;
+
+        public string Street1
+        {
+            get => _Street1 ?? "";
+            set 
+            {
+                _Street1 = value ?? throw new ArgumentNullException(nameof(value));
+            }
+        }
+
         public string? Street2 { get; }
         public string City { get; }
         public string Zip { get; }
@@ -33,7 +43,7 @@ namespace EssentialCSharp8.Tests.NullableReferenceTypes
             string city,
             string zip,
             string country
-        ):this(street1, null, city, zip, country)
-        {        }
+        ) : this(street1, null, city, zip, country)
+        { }
     }
 }

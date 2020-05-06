@@ -9,10 +9,13 @@ namespace EssentialCSharp8.Tests.NullableReferenceTypes
     {
         public static bool IsNull(this object thing)
         {
+            //return thing == null;
+            //return ReferenceEquals(thing, null);
             return thing is null;
         }
+
         public static void AssertIsNotNull<T>(this T thing)
-            where T: notnull
+            where T: class
         {
             if(thing is null)
             {
@@ -26,11 +29,18 @@ namespace EssentialCSharp8.Tests.NullableReferenceTypes
     [TestClass]
     public class NullCheckerTests
     {
+        [NotNull]
+        public TestContext? TestContext { get; set; }
+
         [TestMethod]
         public void IsNull_GivenNullObject_Success()
         {
+            //mark@intellitect.com
+            //kevin@intellitect.com
+
+            string testName = TestContext.TestName;
             Assert.AreEqual(
-                true, ((object?)null).IsNull());
+                true, NullChecker.IsNull(null));
         }
 
         [TestMethod]
@@ -44,14 +54,22 @@ namespace EssentialCSharp8.Tests.NullableReferenceTypes
         [TestMethod]
         public void IsNull_GivenNullInt_Success()
         {
-            Assert.IsTrue(
-                5 is { });
+            Assert.IsFalse(
+                42.IsNull());
+        }
+
+        public void Foo(string text)
+        {
+            text.AssertIsNotNull();
         }
 
         [TestMethod]
         public void AssertIsNotNull_GivenText_Success()
         {
-            ("Text").AssertIsNotNull();
+            string? text = "Mark";
+            Foo(text!);
+
+            ((object)null).AssertIsNotNull();
         }
     }
 

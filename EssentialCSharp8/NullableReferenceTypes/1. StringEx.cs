@@ -1,20 +1,21 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-//#nullable disable
+//#nullable enable
 namespace EssentialCSharp8.Tests.NullableReferenceTypes
 {
 
     public static class StringEx
     {
-        public static string ToPascalCase(this string text)
+        public static string? ToPascalCase(this string? text)
         {
             if (text is null)
             {
-                throw new ArgumentNullException(nameof(text));
+                return text;
+                //throw new ArgumentNullException(nameof(text));
             }
 
             // Forgive the use of string rather than StringBuilder :)
-            string result = null;
+            string result = "";
             bool lastCharacterIsWhitespace = true;
 
             foreach (char character in text)

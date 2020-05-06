@@ -1,7 +1,9 @@
 namespace AddisonWesley.Michaelis.EssentialCSharp.Chapter20.Listing20_03
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Net;
     using System.Threading.Tasks;
 
@@ -50,9 +52,23 @@ namespace AddisonWesley.Michaelis.EssentialCSharp.Chapter20.Listing20_03
 
             int textOccurrenceCount = await taskSearch;
 
+            await foreach (int value in GetData())
+            {
+                Console.WriteLine($"{value}");
+            }
+
             Console.WriteLine(
                 @$"{Environment.NewLine}'{findText}' appears {
                     textOccurrenceCount} times at URL '{url}'.");
+        }
+
+        private static async IAsyncEnumerable<int> GetData()
+        {
+            foreach(int number in Enumerable.Repeat(1, 100))
+            {
+                await Task.Delay(10);
+                yield return number;
+            }
         }
 
 
